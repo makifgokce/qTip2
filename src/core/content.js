@@ -6,12 +6,12 @@ PROTOTYPE._update = function(content, element) {
 	if(!this.rendered || !content) { return FALSE; }
 
 	// Use function to parse content
-	if($.isFunction(content)) {
+	if(typeof content === 'function') {
 		content = content.call(this.elements.target, cache.event, this) || '';
 	}
 
 	// Handle deferred content
-	if($.isFunction(content.then)) {
+	if(typeof content.then === 'function') {
 		cache.waiting = TRUE;
 		return content.then(function(c) {
 			cache.waiting = FALSE;
@@ -86,10 +86,10 @@ PROTOTYPE._createTitle = function()
 	.insertBefore(elements.content)
 
 	// Button-specific events
-	.delegate('.qtip-close', 'mousedown keydown mouseup keyup mouseout', function(event) {
+	.on('mousedown keydown mouseup keyup mouseout', '.qtip-close', function(event) {
 		$(this).toggleClass('ui-state-active ui-state-focus', event.type.substr(-4) === 'down');
 	})
-	.delegate('.qtip-close', 'mouseover mouseout', function(event){
+	.on('mouseover mouseout', '.qtip-close', function(event){
 		$(this).toggleClass('ui-state-hover', event.type === 'mouseover');
 	});
 

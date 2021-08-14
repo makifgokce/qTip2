@@ -32,7 +32,7 @@ PROTOTYPE.reposition = function(event, effect) {
 		pluginCalculations, offset, adjusted, newClass;
 
 	// Check if absolute position was passed
-	if($.isArray(target) && target.length === 2) {
+	if(Array.isArray(target) && target.length === 2) {
 		// Force left top and set position
 		at = { x: LEFT, y: TOP };
 		position = { left: target[0], top: target[1] };
@@ -186,12 +186,12 @@ PROTOTYPE.reposition = function(event, effect) {
 	delete position.adjusted;
 
 	// If effect is disabled, target it mouse, no animation is defined or positioning gives NaN out, set CSS directly
-	if(effect === FALSE || !visible || isNaN(position.left) || isNaN(position.top) || target === 'mouse' || !$.isFunction(posOptions.effect)) {
+	if(effect === FALSE || !visible || isNaN(position.left) || isNaN(position.top) || target === 'mouse' || typeof posOptions.effect !== 'function') {
 		tooltip.css(position);
 	}
 
 	// Use custom function if provided
-	else if($.isFunction(posOptions.effect)) {
+	else if(typeof posOptions.effect === 'function') {
 		posOptions.effect.call(tooltip, this, $.extend({}, position));
 		tooltip.queue(function(next) {
 			// Reset attributes to avoid cross-browser rendering bugs

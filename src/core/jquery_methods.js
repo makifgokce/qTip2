@@ -19,7 +19,7 @@ function init(elem, id, opts) {
 
 	// If we don't get an object returned attempt to parse it manualyl without parseJSON
 	/* eslint-disable no-empty */
-	try { html5 = typeof html5 === 'string' ? $.parseJSON(html5) : html5; }
+	try { html5 = typeof html5 === 'string' ? JSON.parse(html5) : html5; }
 	catch(e) {}
 	/* eslint-enable no-empty */
 
@@ -136,7 +136,7 @@ QTIP = $.fn.qtip = function(options, notation, newValue)
 			var api, id;
 
 			// Find next available ID, or use custom ID if provided
-			id = $.isArray(opts.id) ? opts.id[i] : opts.id;
+			id = Array.isArray(opts.id) ? opts.id[i] : opts.id;
 			id = !id || id === FALSE || id.length < 1 || QTIP.api[id] ? QTIP.nextid++ : id;
 
 			// Initialize the qTip and re-grab newly sanitized options

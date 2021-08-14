@@ -92,7 +92,7 @@ PROTOTYPE.render = function(show) {
 		this._createTitle();
 
 		// Update title only if its not a callback (called in toggle if so)
-		if(!$.isFunction(title)) {
+		if(typeof title !== 'function') {
 			deferreds.push( this._updateTitle(title, FALSE) );
 		}
 	}
@@ -101,7 +101,7 @@ PROTOTYPE.render = function(show) {
 	if(button) { this._createButton(); }
 
 	// Set proper rendered flag and update content if not a callback function (called in toggle)
-	if(!$.isFunction(text)) {
+	if(typeof text !== 'function') {
 		deferreds.push( this._updateContent(text, FALSE) );
 	}
 	this.rendered = TRUE;

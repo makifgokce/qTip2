@@ -1,12 +1,12 @@
 function invalidOpt(a) {
-	return a === NULL || $.type(a) !== 'object';
+	return a === NULL || typeof a !== 'object';
 }
 
 function invalidContent(c) {
-	return !($.isFunction(c) || 
+	return !(typeof c === 'function' || 
             c && c.attr || 
             c.length || 
-            $.type(c) === 'object' && (c.jquery || c.then));
+            typeof c === 'object' && (c.jquery || c.then));
 }
 
 // Option object sanitizer
@@ -172,7 +172,7 @@ CHECKS = PROTOTYPE.checks = {
 
 		// Events check
 		'^events.(render|show|move|hide|focus|blur)$': function(obj, o, v) {
-			this.rendered && this.tooltip[($.isFunction(v) ? '' : 'un') + 'bind']('tooltip'+o, v);
+			this.rendered && this.tooltip[(typeof v === 'function' ? '' : 'un') + 'bind']('tooltip'+o, v);
 		},
 
 		// Properties which require event reassignment
